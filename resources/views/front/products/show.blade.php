@@ -51,7 +51,7 @@
                                 @endif
                             </h3>
                             <p class="info-text">{{ $product->description }}</p>
-                            <form action="{{ route('cart.store') }}"  method="POST" >
+                            <form action="{{ route('cart.store') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
 
@@ -104,12 +104,13 @@
                                     <div class="row align-items-end">
                                         <div class="col-lg-4 col-md-4 col-12">
                                             <div class="button cart-button">
-                                                <button class="btn" type="submit" style="width: 100%;">Add to Cart</button>
+                                                <button class="btn" type="submit" style="width: 100%;">Add to
+                                                    Cart</button>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-12">
                                             <div class="wish-button">
-                                                <button class="btn"><i class="lni lni-reload"></i> Compare</button>
+                                                <button  class="btn"><i class="lni lni-reload"></i> Compare</button>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-12">
