@@ -1,13 +1,16 @@
 <!-- Start Single Product -->
 <div class="single-product">
     <div class="product-image">
-        <img src="{{ $product->image_url }}" alt="#">
+        <img src="https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg" alt="#">
         @if($product->sale_percent)
         <span class="sale-tag">-{{ $product->sale_percent }}%</span>
         @endif
         <div class="button">
-            <a href="{{ route('cart.store') }}" class="btn"><i class="lni lni-cart"></i> Add to
-                Cart</a>
+            <form method="post" action="{{ route('cart.store') }}">
+                @csrf
+                <button type="submit"  class="btn"><i class="lni lni-cart"></i> Add to
+                    Cart</button>
+                </form>
         </div>
     </div>
     <div class="product-info">

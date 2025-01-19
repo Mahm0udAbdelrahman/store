@@ -21,9 +21,10 @@ class DatabaseSeeder extends Seeder
         Store::factory(25)->create();
         Product::factory(100)->create();
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Test Admin',
+            'email' => 'admin@admin.com',
             'password' => Hash::make('123456789'),
+            'type' => 'admin',
             'store_id' => 1,
         ]);
 

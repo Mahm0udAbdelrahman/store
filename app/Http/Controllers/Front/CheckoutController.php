@@ -63,9 +63,9 @@ class CheckoutController extends Controller
                 }
 
             }
-            // $this->cartRepository->empty();
+            $this->cartRepository->empty();
             DB::commit();
-            event(new OrderCreated($order));
+            // event(new OrderCreated($order));
         } catch (Throwable $e) {
             DB::rollBack();
             return $e;

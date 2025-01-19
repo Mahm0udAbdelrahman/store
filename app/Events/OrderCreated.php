@@ -32,7 +32,7 @@ class OrderCreated
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-name'),
+            new Channel('channel-name'),
         ];
     }
 }
