@@ -10,6 +10,10 @@ use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
+use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
+use NotificationChannels\Fcm\Resources\Notification as FcmNotification;
+
 class OrderCreatedNotification extends Notification
 {
     use Queueable;
@@ -29,6 +33,9 @@ class OrderCreatedNotification extends Notification
      */
     public function via(object $notifiable): array
     {
+
+        return [FcmChannel::class];
+
         return ['mail' ,'database', 'broadcast'];
 
         $channels = ['database'];
@@ -82,6 +89,34 @@ class OrderCreatedNotification extends Notification
             'url' => route('home'),
             'order_id' => $this->order->id,
         ]);
+    }
+
+    public function toFcm($notifiable): FcmMessage
+    {
+        $addr = $this->order->billingAddress;
+        return (new FcmMessage(notification: new FcmNotification(
+                title: 'Account Activated',
+                body: "A new Order (#{$this->order->number}) created by {$addr->name} form {$addr->country_name}",
+                image: 'http://example.com/url-to-image-here.png'
+            )))
+            ->data([
+                'order_id' => $this->order->id,
+            ])
+            ->custom([
+                'android' => [
+                    'notification' => [
+                        'color' => '#0A0A0A',
+                    ],
+                    'fcm_options' => [
+                        'analytics_label' => 'analytics',
+                    ],
+                ],
+                'apns' => [
+                    'fcm_options' => [
+                        'analytics_label' => 'analytics',
+                    ],
+                ],
+            ]);
     }
 
     /**

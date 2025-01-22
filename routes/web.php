@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\CheckoutController;
-use App\Http\Controllers\Front\PaymentController;
+use App\Http\Controllers\Api\DeviceTokensController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -26,6 +27,9 @@ Route::get('checkout', [CheckoutController::class, 'create'])->name('checkout');
 
 Route::post('checkout', [CheckoutController::class, 'store'])->name('store.checkout');
 
+
+
+Route::post('device-tokens', [DeviceTokensController::class, 'store'])->middleware('auth:sanctum')->name('device-tokens.store');
 
 Route::get( 'order/{order}/pay', [PaymentController::class, 'create'])->name('orders.payments.create');
 Route::post( 'order/{order}/strip/payment-intent',[PaymentController::class, 'createStripPaymentIntent'])->name('stripe.paymentIntent.create');

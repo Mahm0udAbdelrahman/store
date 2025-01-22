@@ -54,4 +54,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Profile::class,'user_id','id')->withDefault();
     }
+
+    public function deviceTokens()
+    {
+        return $this->hasMany(DeviceTokens::class);
+    }
+
+    public function routeNotificationForFcm()
+    {
+        return $this->deviceTokens()->pluck('token')->toArray();
+    }
 }
